@@ -1,13 +1,16 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Robot from './Robot';
+import Wall from './Wall';
 
 const GridRow = ({
   rowLength,
-  insert,
+  insertRobot,
+  insertWall,
 }: {
   rowLength: number;
-  insert?: number;
+  insertRobot?: number;
+  insertWall?: number;
 }) => {
   let arr = new Array(rowLength).fill('');
 
@@ -15,7 +18,7 @@ const GridRow = ({
   return (
     <Grid container direction='row'>
       {arr.map((item: any, index: number) => {
-        if (index === insert) {
+        if (index === insertRobot) {
           return (
             <Grid
               item
@@ -26,6 +29,19 @@ const GridRow = ({
               }}
             >
               <Robot />
+            </Grid>
+          );
+        } else if (index === insertWall) {
+          return (
+            <Grid
+              item
+              style={{
+                width: 50,
+                height: 50,
+                border: '1px solid black',
+              }}
+            >
+              <Wall />
             </Grid>
           );
         } else {

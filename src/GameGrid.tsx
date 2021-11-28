@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core';
 import React from 'react';
 import GridRow from './GridRow';
 import Robot from './Robot';
@@ -5,24 +6,39 @@ import Robot from './Robot';
 const GameGrid = ({
   rowLength,
   columnLength,
-  insert,
+  insertRobot,
+  insertWall,
 }: {
   rowLength: number;
   columnLength: number;
-  insert?: { y: number; x: number };
+  insertRobot?: { y: number; x: number };
+  insertWall?: { y: number; x: number };
 }) => {
   let arr = new Array(columnLength).fill('');
 
   return (
-    <>
-      {arr.map((item: any, index: number) => {
-        if (index === insert?.y) {
-          return <GridRow rowLength={rowLength} insert={insert.x} />;
-        } else {
-          return <GridRow rowLength={rowLength} />;
-        }
-      })}
-    </>
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <div>
+        {arr.map((item: any, index: number) => {
+          if (index === insertRobot?.y && index !== insertWall?.y) {
+            return (
+              <GridRow rowLength={rowLength} insertRobot={insertRobot.x} />
+            );
+          } else if (index === insertWall?.y && index !== insertRobot?.y) {
+            <GridRow rowLength={rowLength} insertWall={insertWall.x} />;
+          } else {
+            return <GridRow rowLength={rowLength} />;
+          }
+        })}
+      </div>
+    </div>
   );
 };
 
