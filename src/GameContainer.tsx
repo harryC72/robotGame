@@ -27,21 +27,36 @@ const GameContainer = () => {
 
   React.useEffect(() => {
     if (yValRobot && xValRobot) {
+      if (
+        yValWall &&
+        yValWall === yValRobot &&
+        xValWall &&
+        xValWall === xValRobot
+      )
+        return;
+
       setInsertRobot({
         x: xValRobot - 1,
         y: yValRobot - 1,
       });
     }
-  }, [yValRobot, xValRobot]);
+  }, [yValRobot, xValRobot, yValWall, xValWall]);
 
   React.useEffect(() => {
     if (yValWall && xValWall) {
+      if (
+        yValRobot &&
+        yValWall === yValRobot &&
+        xValRobot &&
+        xValWall === xValRobot
+      )
+        return;
       setInsertWall({
         x: xValWall - 1,
         y: yValWall - 1,
       });
     }
-  }, [yValWall, xValWall]);
+  }, [yValWall, xValWall, yValRobot, xValRobot]);
 
   const setYRobot = (event: React.ChangeEvent<HTMLInputElement>) => {
     setYValRobot(parseInt(event.target.value));

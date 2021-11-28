@@ -32,7 +32,7 @@ const GameGrid = ({
               <GridRow rowLength={rowLength} insertRobot={insertRobot.x} />
             );
           } else if (index === insertWall?.y && index !== insertRobot?.y) {
-            <GridRow rowLength={rowLength} insertWall={insertWall.x} />;
+            return <GridRow rowLength={rowLength} insertWall={insertWall.x} />;
           } else {
             return <GridRow rowLength={rowLength} />;
           }
