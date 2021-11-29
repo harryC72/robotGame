@@ -5,6 +5,8 @@ import {
   FormControlLabel,
   Radio,
   Grid,
+  TextField,
+  Button,
 } from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
 
@@ -12,8 +14,6 @@ const PositionSetter = ({
   heading,
   setX,
   setY,
-  xVal,
-  yVal,
 }: {
   heading: string;
   setX: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -21,6 +21,18 @@ const PositionSetter = ({
   xVal: number | undefined;
   yVal: number | undefined;
 }) => {
+  const [x, setLocalX] = React.useState('');
+  const [y, setLocalY] = React.useState('');
+
+  const handleX = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalX(event.target.value);
+    setX(event);
+  };
+
+  const handleY = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalY(event.target.value);
+    setY(event);
+  };
   return (
     <Grid
       container
@@ -29,38 +41,41 @@ const PositionSetter = ({
       alignItems='center'
       style={{ padding: 20 }}
     >
-      <Typography>{heading}</Typography>
-      <div style={{ border: '2px solid black', padding: 20, width: '20%' }}>
-        <Typography>Position X</Typography>
-        <FormControl component='fieldset'>
-          <RadioGroup
-            name='radio-buttons-group'
-            style={{ display: 'flex', flexDirection: 'row' }}
-            value={xVal}
-            onChange={setX}
-          >
-            <FormControlLabel value='1' control={<Radio />} label='1' />
-            <FormControlLabel value='2' control={<Radio />} label='2' />
-            <FormControlLabel value='3' control={<Radio />} label='3' />{' '}
-            <FormControlLabel value='4' control={<Radio />} label='4' />{' '}
-            <FormControlLabel value='5' control={<Radio />} label='5' />
-          </RadioGroup>
-        </FormControl>
-        <Typography>Position Y</Typography>
-        <FormControl component='fieldset'>
-          <RadioGroup
-            name='radio-buttons-group'
-            style={{ display: 'flex', flexDirection: 'row' }}
-            value={yVal}
-            onChange={setY}
-          >
-            <FormControlLabel value='5' control={<Radio />} label='1' />
-            <FormControlLabel value='4' control={<Radio />} label='2' />
-            <FormControlLabel value='3' control={<Radio />} label='3' />{' '}
-            <FormControlLabel value='2' control={<Radio />} label='4' />{' '}
-            <FormControlLabel value='1' control={<Radio />} label='5' />
-          </RadioGroup>
-        </FormControl>
+      <div
+        style={{
+          border: '2px solid black',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: 20,
+          width: '20%',
+        }}
+      >
+        <Typography>{heading}</Typography>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            border: '2px solid black',
+            padding: 20,
+            width: '20%',
+          }}
+        >
+          <Typography>Position X</Typography>
+          <TextField type='text' value={x} onChange={handleX} />
+
+          <Typography>Position Y</Typography>
+          <TextField type='text' value={y} onChange={handleY} />
+        </div>
+        <Button
+          onClick={() => {
+            setLocalY('');
+            setLocalX('');
+          }}
+        >
+          Clear
+        </Button>
       </div>
     </Grid>
   );

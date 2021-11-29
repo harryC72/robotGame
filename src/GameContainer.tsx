@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import GameGrid from './GameGrid';
 import PositionSetter from './PositionSetter';
+import { v4 as uuidv4 } from 'uuid';
 
 const GameContainer = () => {
   const [yValRobot, setYValRobot] = React.useState<number | undefined>();
@@ -22,6 +23,7 @@ const GameContainer = () => {
   const [insertWall, setInsertWall] = React.useState<
     { x: number; y: number } | undefined
   >();
+  const [wallArr, setWallArr] = React.useState<{ x: number; y: number }[]>([]);
   const gridHeight = 5;
   const gridWidth = 5;
 
@@ -55,6 +57,15 @@ const GameContainer = () => {
         x: xValWall - 1,
         y: yValWall - 1,
       });
+      setWallArr((oldArray) => [
+        ...oldArray,
+        {
+          x: xValWall - 1,
+          y: yValWall - 1,
+        },
+      ]);
+      setYValWall(undefined);
+      setXValWall(undefined);
     }
   }, [yValWall, xValWall, yValRobot, xValRobot]);
 
